@@ -1,0 +1,68 @@
+// Online C++ compiler to run C++ program online
+//codded by md.shaharia hasan
+//quicksort ascending and descending order
+#include <iostream>
+using namespace std;
+void display(int a[],int n){
+    for(int i=0;i<n;i++){
+        cout<<a[i]<<" ";
+    }
+    cout<<endl;
+}
+int partition(int a[],int low,int high){
+    int pivot=a[low];
+    int i=low+1;
+    int j=high;
+    int temp;
+    do{
+        //code for descending order
+       /* while(a[i]>=pivot){
+            i++;
+        }
+        while(a[j]<pivot){
+            j--;
+        }
+        */
+        //code for ascending order
+        while(a[i]<=pivot){
+            i++;
+        }
+        while(a[j]>pivot){
+            j--;
+        }
+        if(i<j){
+        temp=a[i];
+        a[i]=a[j];
+        a[j]=temp;
+        }
+    }while(i<j);
+    temp=a[low];
+    a[low]=a[j];
+    a[j]=temp;
+    return j;
+}
+void quicksort(int a[],int low,int high){
+    int partitionindex;
+    if(low<high){
+        partitionindex=partition(a,low,high);
+        quicksort(a,low,partitionindex-1);
+        quicksort(a,partitionindex+1,high);
+    }
+}
+
+int main() {
+    // Write C++ code here
+   int n;
+   cin>>n;
+   int a[n];
+   for(int i=0;i<n;i++){
+       cin>>a[i];
+   }
+   cout<<"before ascending order quick sort"<<endl;
+   display(a,n);
+   quicksort(a,0,n-1);
+   cout<<"after quicksort ascending order the array :"<<endl;
+   display(a,n);
+
+    return 0;
+}
