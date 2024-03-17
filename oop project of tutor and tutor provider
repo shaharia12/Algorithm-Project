@@ -1,0 +1,170 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+class Tutor {
+    private String name;
+    private String subject;
+    private double salary;
+    private String qualification;
+    private int experience;
+    private String contuctinformation;
+
+    public Tutor(String name, String subject, double salary, String qualification, int experience,String contuctinformation) {
+        this.name = name;
+        this.subject = subject;
+        this.salary = salary;
+        this.qualification = qualification;
+        this.experience = experience;
+        this.contuctinformation=contuctinformation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public double getRate() {
+        return salary;
+    }
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public String getContuctinformation() {
+        return contuctinformation;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + "\nSubject: " + subject + "\nSalary: BDT:" + salary + "/per month\nQualification: " + qualification + "\nExperience: " + experience + " years\nContuctinformation:"+contuctinformation;
+    }
+}
+
+ class TutorProvider {
+    private List<Tutor> tutors;
+
+    public TutorProvider() {
+        this.tutors = new ArrayList<>();
+    }
+
+    public void addTutor(Tutor tutor) {
+        tutors.add(tutor);
+    }
+
+    public List<Tutor> searchTutorsBySubject(String subject) {
+        List<Tutor> foundTutors = new ArrayList<>();
+        for (Tutor tutor : tutors) {
+            if (tutor.getSubject().equalsIgnoreCase(subject)) {
+                foundTutors.add(tutor);
+            }
+        }
+        return foundTutors;
+    }
+
+    public List<Tutor> getAllTutors() {
+        return tutors;
+    }
+}
+
+public class Main {
+    private static TutorProvider tutorProvider = new TutorProvider();
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        boolean running = true;
+        while (running) {
+            displayMenu();
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    addTutor();
+                    break;
+                case 2:
+                    searchTutors();
+                    break;
+                case 3:
+                    viewAllTutors();
+                    break;
+                case 4:
+                    running = false;
+                    System.out.println("Exiting the program...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    private static void displayMenu() {
+        System.out.println("\nTutor Management System");
+        System.out.println("1. Add Tutor");
+        System.out.println("2. Search Tutors by Subject");
+        System.out.println("3. View All Tutors");
+        System.out.println("4. Exit");
+        System.out.print("Enter your choice: ");
+    }
+
+    private static void addTutor() {
+        System.out.print("Enter tutor name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter subject: ");
+        String subject = scanner.nextLine();
+        System.out.print("Enter salary per month: ");
+        double rate = scanner.nextDouble();
+        scanner.nextLine();
+        System.out.print("Enter qualification: ");
+        String qualification = scanner.nextLine();
+        System.out.print("Enter experience (in years): ");
+        int experience = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("enter your contuct information:");
+        String contuctinformation=scanner.nextLine();
+
+
+        Tutor tutor = new Tutor(name, subject, rate, qualification, experience,contuctinformation);
+        tutorProvider.addTutor(tutor);
+        System.out.println("Tutor added successfully.");
+    }
+
+    private static void searchTutors() {
+        System.out.print("Enter subject to search: ");
+        String subject = scanner.nextLine();
+        List<Tutor> foundTutors = tutorProvider.searchTutorsBySubject(subject);
+
+        if (foundTutors.isEmpty()) {
+            System.out.println("No tutors found for the subject: " + subject);
+        } else {
+            System.out.println("Tutors found for subject " + subject + ":");
+            for (Tutor tutor : foundTutors) {
+                System.out.println(tutor);
+                System.out.println();
+            }
+        }
+    }
+
+    private static void viewAllTutors() {
+        List<Tutor> allTutors = tutorProvider.getAllTutors();
+        if (allTutors.isEmpty()) {
+            System.out.println("No tutors available.");
+        } else {
+            System.out.println("All Tutors:");
+            for (Tutor tutor : allTutors) {
+                System.out.println(tutor);
+                System.out.println();
+            }
+        }
+    }
+}
+
+
+
