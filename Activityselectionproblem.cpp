@@ -15,9 +15,6 @@ void select(vector<act>ar)
 {
     sort(ar.begin(),ar.end(),re);
     cout<<"Activities ";
-    // for(auto it : ar)
-    // cout<<it.fi<<":"<<it.en<<" ";
-    // cout<<endl;
     cout<<ar[0].fi<<":"<<ar[0].en<<" ";
     int last=ar[0].en;
     for(int i=1;i<ar.size();i++)
